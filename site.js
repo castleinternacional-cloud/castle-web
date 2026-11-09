@@ -68,6 +68,21 @@
     document.head.appendChild(l);
     import('https://cdn.jsdelivr.net/npm/@n8n/chat@0.50.0/dist/chat.bundle.es.js').then(function (m) {
       m.createChat({ webhookUrl: C.chatUrl, loadPreviousSession: false, showWelcomeScreen: false, initialMessages: ['¡Hola! Soy el asistente de Castle International. ¿En qué te puedo ayudar?'], i18n: { en: { title: 'Castle International', subtitle: 'Pregúntanos lo que quieras', footer: '', getStarted: 'Nueva conversación', inputPlaceholder: 'Escribe tu pregunta…' } } });
+      addTeaser();
     });
+  }
+
+  // Mensaje llamativo junto al botón del chat
+  function addTeaser() {
+    var t = document.createElement('div');
+    t.className = 'chat-teaser';
+    t.innerHTML = '<b>Pruébalo tú mismo.</b> Pregúntale al asistente lo que quieras.<button type="button" aria-label="Cerrar">×</button>';
+    document.body.appendChild(t);
+    function hide() { t.classList.remove('show'); setTimeout(function () { t.remove(); }, 400); }
+    t.querySelector('button').addEventListener('click', function (e) { e.stopPropagation(); hide(); });
+    t.addEventListener('click', function () { var tg = document.querySelector('.chat-window-toggle'); if (tg) tg.click(); hide(); });
+    document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.chat-window-toggle')) hide(); });
+    setTimeout(function () { t.classList.add('show'); }, 1800);
+    setTimeout(hide, 20000);
   }
 })();
