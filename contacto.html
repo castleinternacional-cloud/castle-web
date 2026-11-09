@@ -41,21 +41,43 @@
 <section class="section">
   <div class="wrap grid2">
     <article class="panel reveal">
-      <h3>Escríbenos</h3>
-      <p>La forma más rápida es por WhatsApp.</p>
-      <p><a class="btn" data-wa href="#" id="wa-main">Escribir por WhatsApp</a></p>
-      <p class="muted small" data-mail-wrap>Correo: <a data-mail href="#">—</a></p>
+      <h3>Déjanos tu mensaje</h3>
+      <p class="muted">Te escribimos por WhatsApp lo antes posible.</p>
+      <form id="contact-form" class="form" novalidate>
+        <label>Tu nombre
+          <input type="text" name="nombre" autocomplete="name" required maxlength="80">
+        </label>
+        <label>Tu WhatsApp (con prefijo de país)
+          <input type="tel" name="whatsapp" autocomplete="tel" placeholder="+34 600 000 000" required maxlength="25">
+        </label>
+        <label>Tu empresa
+          <input type="text" name="empresa" autocomplete="organization" maxlength="100">
+        </label>
+        <label>¿Qué necesitas?
+          <textarea name="mensaje" rows="4" required maxlength="800" placeholder="Cuéntanos brevemente a qué se dedica tu empresa y qué quieres lograr."></textarea>
+        </label>
+        <input type="text" name="web" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" id="contact-send">Enviar mensaje</button>
+        <p class="form-msg" id="contact-msg" role="status" aria-live="polite"></p>
+      </form>
     </article>
-    <article class="panel gold reveal">
-      <h3>Prueba gratuita</h3>
-      <p class="big">15 días gratis</p>
-      <ul class="list">
-        <li>La pruebas con tus propios clientes.</li>
-        <li>Sin permanencia ni costes ocultos.</li>
-        <li>Después, si te gusta, seguimos. Si no, lo dejas.</li>
-      </ul>
-      <p class="muted small">Si continúas, el precio se acuerda según tu empresa.</p>
-    </article>
+    <div class="stack">
+      <article class="panel reveal">
+        <h3>O escríbenos directamente</h3>
+        <p>La forma más rápida es por WhatsApp.</p>
+        <p><a class="btn" data-wa href="#" id="wa-main">Escribir por WhatsApp</a></p>
+        <p class="muted small" data-mail-wrap>Correo: <a data-mail href="#">—</a></p>
+      </article>
+      <article class="panel gold reveal">
+        <h3>Prueba gratuita</h3>
+        <p class="big">15 días gratis</p>
+        <ul class="list">
+          <li>La pruebas con tus propios clientes.</li>
+          <li>Sin permanencia ni costes ocultos.</li>
+          <li>Después, si te gusta, seguimos. Si no, lo dejas.</li>
+        </ul>
+      </article>
+    </div>
   </div>
 </section>
 </main>

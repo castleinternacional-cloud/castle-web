@@ -32,13 +32,42 @@
   var t = document.getElementById('menu-toggle');
   document.querySelectorAll('.main-nav a').forEach(function (a) { a.addEventListener('click', function () { if (t) t.checked = false; }); });
 
+
+  // Formulario de contacto -> n8n -> Telegram
+  var form = document.getElementById('contact-form');
+  if (form) {
+    var msg = document.getElementById('contact-msg');
+    var btn = document.getElementById('contact-send');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      msg.className = 'form-msg';
+      var d = new FormData(form);
+      if (d.get('web')) { return; } // anti-spam (campo oculto)
+      var nombre = (d.get('nombre') || '').trim(), wa = (d.get('whatsapp') || '').trim(), texto = (d.get('mensaje') || '').trim();
+      if (!nombre || !texto || wa.replace(/\D/g, '').length < 8) {
+        msg.textContent = 'Revisa tu nombre, tu WhatsApp (con prefijo) y el mensaje.'; msg.className = 'form-msg err'; return;
+      }
+      if (!C.contactUrl) { msg.textContent = 'El formulario aún no está disponible. Escríbenos por WhatsApp.'; msg.className = 'form-msg err'; return; }
+      btn.disabled = true; btn.textContent = 'Enviando…';
+      var body = new URLSearchParams({ nombre: nombre, whatsapp: wa, empresa: (d.get('empresa') || '').trim(), mensaje: texto });
+      fetch(C.contactUrl, { method: 'POST', mode: 'no-cors', body: body }).then(function () {
+        form.reset(); msg.textContent = '¡Gracias! Hemos recibido tu mensaje y te escribiremos por WhatsApp.'; msg.className = 'form-msg ok';
+        btn.textContent = 'Enviado';
+        setTimeout(function () { btn.disabled = false; btn.textContent = 'Enviar mensaje'; }, 4000);
+      }).catch(function () {
+        btn.disabled = false; btn.textContent = 'Enviar mensaje';
+        msg.textContent = 'No se pudo enviar. Inténtalo otra vez o escríbenos por WhatsApp.'; msg.className = 'form-msg err';
+      });
+    });
+  }
+
   // Chat de n8n (solo si hay URL)
   if (C.chatUrl) {
     var l = document.createElement('link');
     l.rel = 'stylesheet'; l.href = 'https://cdn.jsdelivr.net/npm/@n8n/chat@0.50.0/dist/style.css';
     document.head.appendChild(l);
     import('https://cdn.jsdelivr.net/npm/@n8n/chat@0.50.0/dist/chat.bundle.es.js').then(function (m) {
-      m.createChat({ webhookUrl: C.chatUrl, initialMessages: ['¡Hola! Soy el asistente de Castle International. ¿En qué te puedo ayudar?'], i18n: { en: { title: 'Castle International', subtitle: 'Pregúntanos lo que quieras', footer: '', getStarted: 'Nueva conversación', inputPlaceholder: 'Escribe tu pregunta…' } } });
+      m.createChat({ webhookUrl: C.chatUrl, loadPreviousSession: false, showWelcomeScreen: false, initialMessages: ['¡Hola! Soy el asistente de Castle International. ¿En qué te puedo ayudar?'], i18n: { en: { title: 'Castle International', subtitle: 'Pregúntanos lo que quieras', footer: '', getStarted: 'Nueva conversación', inputPlaceholder: 'Escribe tu pregunta…' } } });
     });
   }
 })();

@@ -145,3 +145,29 @@ p+p{margin-top:14px}
   .notice dd{margin-bottom:10px}
   .step{padding:22px;gap:16px}
 }
+
+/* Formulario */
+.stack{display:grid;gap:24px;align-content:start}
+.form{display:grid;gap:16px;margin-top:18px}
+.form label{display:grid;gap:6px;font-size:.9rem;font-weight:500;color:var(--ink)}
+.form input,.form textarea{font:inherit;font-size:1rem;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%;transition:border-color .2s,box-shadow .2s}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,146,74,.2)}
+.form textarea{resize:vertical;min-height:110px}
+.form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.form .btn{justify-self:start}
+.form .btn:disabled{opacity:.6;cursor:default;transform:none;box-shadow:none}
+.form-msg{min-height:1.3em;font-size:.93rem;margin:0}
+.form-msg.ok{color:#2E7D4F} .form-msg.err{color:#B3261E}
+
+/* Chat n8n con los colores de Castle */
+html:root{
+  --chat--color-primary:#B8924A; --chat--color-primary-shade-50:#A58140; --chat--color-primary-shade-100:#8F6E2E;
+  --chat--color-secondary:#1E1B16; --chat--color-secondary-shade-50:#33302A;
+  --chat--color-white:#FFFFFF; --chat--color-light:#FBF8F1; --chat--color-light-shade-50:#F4EEDF; --chat--color-light-shade-100:#E6DDC8;
+  --chat--color-medium:#D2C8B0; --chat--color-dark:#1E1B16;
+  --chat--header--background:#1E1B16; --chat--header--color:#FFFFFF;
+  --chat--toggle--background:#B8924A; --chat--toggle--hover--background:#8F6E2E; --chat--toggle--active--background:#8F6E2E; --chat--toggle--color:#FFFFFF;
+  --chat--message--bot--background:#FFFFFF; --chat--message--bot--color:#1E1B16;
+  --chat--message--user--background:#B8924A; --chat--message--user--color:#FFFFFF;
+  --chat--font-family:'Inter',system-ui,sans-serif;
+}
